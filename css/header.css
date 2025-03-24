@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+}
+
+header {
+    height: 60px;
+    display: flex;
+    border-bottom: 1px solid rgb(214, 208, 208);
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    background-color: white;
+}
+
+.Instagram {
+    height: 82%;
+    margin: 7px 0 0 17px;
+    cursor: pointer;
+}
+
+.icons {
+    height: 40%;
+}
+
+.inputdiv {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-left: 20px;
+}
+
+.inputdiv-2 {
+    position: relative;
+}
+
+.inputdiv img  {
+    height: 15px;
+    position: absolute;
+    top: 10px;
+    left: 13px;
+}
+
+.inputdiv input {
+    width: 255px;
+    height: 33px;
+    background-color: #ececec;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding-left: 15px;
+}
+
+.inputdiv input::placeholder {
+    padding-left: 30px;
+    font-family: Arial;
+    font-size: 17px;
+    color: rgb(152, 152, 152);
+}
+
+.divheart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 17px;
+    cursor: pointer;
+}
