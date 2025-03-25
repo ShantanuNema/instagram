@@ -1,0 +1,84 @@
+body, p {
+    font-family: arial;
+    margin: 0;
+}
+
+img {
+    cursor: pointer;
+}
+
+.container {
+    position: relative;
+    overflow: hidden;
+    width: 610px;
+}
+
+.story-bar {
+    margin: 18px 0 0 0;
+    height: 90px;
+    overflow: scroll;
+    display: flex;
+    gap: 14px;
+    justify-content: left;
+    align-items: center;
+    padding-left: 5px;
+    position: relative;
+}
+
+.story-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+.story-container {
+    cursor: pointer;
+}
+
+.story-ring {
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.story-ring-private {
+    height: 56px;
+    background: #43A047;
+}
+
+.story {
+    height: 55.5px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.story-name {
+    font-size: 12px;
+    margin-top: 5px;
+    width: 62px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.story-shift-right, .story-shift-left {
+    display: flex;
+    position: absolute;
+    top: 40px;
+    object-fit: cover;
+}
+
+.story-shift-right {
+    right: 12px;
+    height: 30px;
+}
+
+.story-shift-left {
+    left: 15px;
+    height: 23px;
+    z-index: 99;
+}

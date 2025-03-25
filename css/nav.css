@@ -1,0 +1,27 @@
+nav {
+    width: 73px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgb(214, 208, 208);
+    position: fixed;
+    z-index: 200;
+    background-color: white;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    gap: 40px;
+    align-items: center;
+    overflow: scroll;
+}
+
+nav::-webkit-scrollbar {
+    display: none;
+  }
+
+nav img {
+    height: 25px;
+}
+
+.logo {
+    margin-top: 60%;
+}
