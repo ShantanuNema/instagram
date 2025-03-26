@@ -1,5 +1,6 @@
 import { toggleScrollButtons, clickScroll, handleResize } from "./toggle-scroll-buttons.js";
 
+
 let input = document.getElementById('searchInput');
 let searchInput = document.getElementById('searchIcon');
 input.addEventListener(('focus'), () => {
@@ -13,6 +14,7 @@ input.addEventListener('blur', () => {
     searchInput.style.display = "flex";
     input.style.color = "rgb(152, 152, 152)";
 });
+
 
 let storyContainer = '';
 const stories = [
@@ -82,12 +84,87 @@ const stories = [
     }
 })
 
-let storyBar = document.querySelector('.story-bar')
-storyBar.innerHTML = storyContainer;
+let commentInputs = document.querySelectorAll('.comment-input');
+let postBtns = document.querySelectorAll('.post-btn');
 
-storyBar.addEventListener('scroll', toggleScrollButtons);
+function togglePostBtn() {
+    commentInputs.forEach((input, index) => {
+        let postBtn = postBtns[index];
+        if (input.value.trim() === "") {
+            postBtn.style.display = "none";
+        } else {
+            postBtn.style.display = "inline";
+        }
+    });
+}
+
+togglePostBtn();
+commentInputs.forEach((input) => {
+    input.addEventListener('input', togglePostBtn);
+});
+
+let container = document.querySelector('.story-bar')
+container.innerHTML = storyContainer;
+
+container.addEventListener('scroll', toggleScrollButtons);
 clickScroll();
 toggleScrollButtons();
 
 handleResize();
 window.addEventListener('resize', handleResize);
+
+// window.addEventListener('resize', () => {
+//     slideLeft();
+//     slideRight();
+// });
+
+const postCards = document.querySelectorAll('.post-card');
+
+    postCards.forEach((postCard) => {
+        let container = postCard.querySelector('.post-image-container')
+        let prv = postCard.querySelector('.prv');
+        let next = postCard.querySelector('.next');
+
+        prv.addEventListener('click', () => {
+            slideLeft(container);
+            toggleControlButtons(container, prv, next);
+        });
+        next.addEventListener('click', () => {
+            slideRight(container);
+            toggleControlButtons(container, prv, next);
+        });
+
+        toggleControlButtons(container, prv, next);
+    });
+
+    function slideLeft (container) {
+        container.scrollBy({ left: -container.clientWidth, behavior: "smooth" });
+    }
+    
+    function slideRight (container) {
+        container.scrollBy({ left: container.clientWidth + 1, behavior: "smooth" });
+    }
+
+    function toggleControlButtons(container, prv, next) {
+        // console.log(Math.round(container.scrollLeft) + ' ' + container.clientWidth  +  ' ' + container.scrollWidth);
+
+        if (container.scrollLeft > 0) {
+            prv.style.display = 'block';
+            console.log(container.scrollLeft);
+        } else {
+            prv.style.display = 'none';
+            console.log(container.scrollLeft);
+        }
+    
+        if (container.clientWidth >= container.scrollWidth) {
+            next.style.display = 'block';
+            console.log(container.clientWidth);
+        }
+        else if (Math.round(container.scrollLeft) + container.clientWidth >= container.scrollWidth) {
+            next.style.display = 'none';
+
+        } else {
+            next.style.display = 'block';
+        }
+    }
+
