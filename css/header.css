@@ -35,24 +35,26 @@ header {
 }
 
 .inputdiv img  {
-    height: 15px;
+    height: 16px;
     position: absolute;
-    top: 10px;
+    top: 7px;
     left: 13px;
+    cursor: text;
 }
 
 .inputdiv input {
-    width: 255px;
+    width: 245px;
     height: 33px;
     background-color: #ececec;
+    font-size: 15px;
     border: none;
     outline: none;
     border-radius: 5px;
-    padding-left: 15px;
+    padding: 0 15px;
+    text-indent: 26px;
 }
 
 .inputdiv input::placeholder {
-    padding-left: 30px;
     font-family: Arial;
     font-size: 17px;
     color: rgb(152, 152, 152);
