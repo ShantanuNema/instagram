@@ -10,7 +10,7 @@ img {
 .container {
     position: relative;
     overflow: hidden;
-    width: 610px;
+    width: 632px;
 }
 
 .story-bar {
@@ -34,6 +34,7 @@ img {
 }
 
 .story-ring {
+    all: unset;
     width: 57px;
     height: 57px;
     border-radius: 50%;
@@ -50,7 +51,7 @@ img {
 }
 
 .story {
-    height: 55.5px;
+    height: 58px;
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid white;
@@ -73,12 +74,12 @@ img {
 }
 
 .story-shift-right {
-    right: 12px;
+    right: 21px;
     height: 30px;
 }
 
 .story-shift-left {
-    left: 15px;
+    left: 24px;
     height: 23px;
     z-index: 99;
 }
