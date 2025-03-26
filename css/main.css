@@ -15,6 +15,7 @@ main {
    width: 100%;
    border-bottom: 1px solid rgb(206, 203, 203);
    margin-top: 12px;
+   position: relative;
 }
 
 .post-header {
@@ -33,7 +34,7 @@ main {
 }
 
 .post-profile {
-    height: 32px;
+    height: 35px;
 }
 
 .post-profile-ring {
@@ -65,11 +66,33 @@ main {
     height: 17px;
 }
 
+.post-image-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+}
+
 .post-image {
     object-fit: cover;
     width: 100%;
     max-height: 585px;
     border-radius: 4px;
+    cursor: default;
+}
+
+.prv, .next {
+    position: absolute;
+    top: 42%;
+    opacity: 0.8;
+    z-index: 90;
+}
+
+.prv {
+    left: 12px;
+}
+
+.next {
+    right: 10px;
 }
 
 .social-buttons {
@@ -137,7 +160,23 @@ main {
     width: 94%;
 }
 
+.post-btn {
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    height: 0px;
+    background-color: transparent;
+    color: rgb(28, 141, 211);
+    padding: 0;
+    cursor: pointer;
+    margin: 8px 10px;
+}
+
 .emoji {
     height: 15px;
     padding-top: 10px;
+}
+
+.myCarousel {
+    height: 100px;
 }
