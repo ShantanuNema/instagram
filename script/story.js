@@ -1,6 +1,5 @@
 import { toggleScrollButtons, clickScroll, handleResize } from "./toggle-scroll-buttons.js";
 
-
 let input = document.getElementById('searchInput');
 let searchInput = document.getElementById('searchIcon');
 input.addEventListener(('focus'), () => {
@@ -14,7 +13,6 @@ input.addEventListener('blur', () => {
     searchInput.style.display = "flex";
     input.style.color = "rgb(152, 152, 152)";
 });
-
 
 let storyContainer = '';
 const stories = [
@@ -113,58 +111,63 @@ toggleScrollButtons();
 handleResize();
 window.addEventListener('resize', handleResize);
 
-// window.addEventListener('resize', () => {
-//     slideLeft();
-//     slideRight();
-// });
+const postCards = document.querySelectorAll('.post-card');let count = 0;
 
-const postCards = document.querySelectorAll('.post-card');
+postCards.forEach((postCard) => {
+    
+    let container = postCard.querySelector('.post-image-container');
+    let prv = postCard.querySelector('.prv');
+    let next = postCard.querySelector('.next')
+    
+    let pagination = postCard.querySelector('.pagination');
 
-    postCards.forEach((postCard) => {
-        let container = postCard.querySelector('.post-image-container')
-        let prv = postCard.querySelector('.prv');
-        let next = postCard.querySelector('.next');
+    let images = container.querySelectorAll('img');
+    let totalImages = images.length;
 
-        prv.addEventListener('click', () => {
-            slideLeft(container);
-            toggleControlButtons(container, prv, next);
-        });
-        next.addEventListener('click', () => {
-            slideRight(container);
-            toggleControlButtons(container, prv, next);
-        });
+    // Clear pagination before adding new bullets
+    pagination.innerHTML = "";
 
-        toggleControlButtons(container, prv, next);
+    if (totalImages > 1) {
+        for (let i = 0; i < totalImages; i++) {
+            let bullet = document.createElement("span");
+            bullet.classList.add("bullet");
+            if (i === 0) bullet.classList.add("active"); // Set first bullet as active
+            pagination.appendChild(bullet);
+        }
+    }
+
+    slideImage(container, prv, next, pagination);
+
+    prv.addEventListener('click', () => {
+        count--;
+        slideImage(container, prv, next, pagination);
     });
 
-    function slideLeft (container) {
-        container.scrollBy({ left: -container.clientWidth, behavior: "smooth" });
-    }
+    next.addEventListener('click', () => {
+        count++;
+        slideImage(container, prv, next, pagination);
+    });
+
+    images.forEach((image, index) => {
+        image.style.left = `${index * 100}%`;
+    });
+});
+
+function slideImage (container, prv, next, pagination) {
+    let images = container.querySelectorAll('img');
     
-    function slideRight (container) {
-        container.scrollBy({ left: container.clientWidth + 1, behavior: "smooth" });
+    images.forEach((image) => {
+        image.style.transform = `translateX(-${count * 100}%)`;
+    });
+
+    let totalImages = container.querySelectorAll('img').length;
+    prv.style.display = count === 0 ? 'none' : 'block';
+    next.style.display = count === totalImages - 1 ? 'none' : 'block';
+
+    if (pagination) {
+        let bullets = pagination.querySelectorAll('.bullet');
+        bullets.forEach((bullet, index) => {
+            bullet.classList.toggle('active', index === count);
+        });
     }
-
-    function toggleControlButtons(container, prv, next) {
-        // console.log(Math.round(container.scrollLeft) + ' ' + container.clientWidth  +  ' ' + container.scrollWidth);
-
-        if (container.scrollLeft > 0) {
-            prv.style.display = 'block';
-            console.log(container.scrollLeft);
-        } else {
-            prv.style.display = 'none';
-            console.log(container.scrollLeft);
-        }
-    
-        if (container.clientWidth >= container.scrollWidth) {
-            next.style.display = 'block';
-            console.log(container.clientWidth);
-        }
-        else if (Math.round(container.scrollLeft) + container.clientWidth >= container.scrollWidth) {
-            next.style.display = 'none';
-
-        } else {
-            next.style.display = 'block';
-        }
-    }
-
+}
