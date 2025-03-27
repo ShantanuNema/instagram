@@ -10,7 +10,8 @@ img {
 .container {
     position: relative;
     overflow: hidden;
-    width: 632px;
+    width: 542px;
+    padding: 0 12px;
 }
 
 .story-bar {
@@ -46,13 +47,14 @@ img {
 }
 
 .story-ring-private {
-    height: 56px;
+    height: 57px;
     background: #43A047;
 }
 
 .story {
-    height: 58px;
+    height: 55px;
     object-fit: cover;
+    object-position: center;
     border-radius: 50%;
     border: 2px solid white;
 }
