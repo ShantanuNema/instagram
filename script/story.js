@@ -1,21 +1,8 @@
-import { toggleScrollButtons, clickScroll, handleResize } from "./toggle-scroll-buttons.js";
+let storiesContainer = document.querySelector('.story-bar');
 
-let input = document.getElementById('searchInput');
-let searchInput = document.getElementById('searchIcon');
-input.addEventListener(('focus'), () => {
-    input.style.textIndent = "0px";
-    searchInput.style.display = "none";
-    input.style.color = "black";
-});
-
-input.addEventListener('blur', () => {
-    input.style.textIndent = "26px";
-    searchInput.style.display = "flex";
-    input.style.color = "rgb(152, 152, 152)";
-});
-
-let storyContainer = '';
-const stories = [
+export function getStories () {
+    let stories = '';
+    const storiesObj = [
     {
         id: 1,
         url: 'images/image.png',
@@ -64,110 +51,59 @@ const stories = [
         access: 'private',
         name: 'cheese'
     }
-].map((story) => {
+    ].map((story) => {
     if (story.access === 'private') {
-        storyContainer += `<div class="story-container">
+        stories += `<div class="story-container">
             <div class="story-ring story-ring-private">
               <img class="story" src="images/image${story.id}.png" />
             </div>
             <div class="story-name">${story.name}</div>
           </div>`;
     } else {
-        storyContainer += `<div class="story-container">
+        stories += `<div class="story-container">
             <div class="story-ring">
               <img class="story" src="images/image${story.id}.png" />
             </div>
             <div class="story-name">${story.name}</div>
           </div>`;
     }
-})
-
-let commentInputs = document.querySelectorAll('.comment-input');
-let postBtns = document.querySelectorAll('.post-btn');
-
-function togglePostBtn() {
-    commentInputs.forEach((input, index) => {
-        let postBtn = postBtns[index];
-        if (input.value.trim() === "") {
-            postBtn.style.display = "none";
-        } else {
-            postBtn.style.display = "inline";
-        }
     });
+    storiesContainer.innerHTML = stories;
+    storiesContainer.addEventListener('scroll', toggleStoryBtn);
 }
 
-togglePostBtn();
-commentInputs.forEach((input) => {
-    input.addEventListener('input', togglePostBtn);
-});
+let leftToggle = document.querySelector('.story-shift-left');
+let rightToggle = document.querySelector('.story-shift-right');
 
-let container = document.querySelector('.story-bar')
-container.innerHTML = storyContainer;
+export function toggleStoryBtn() {
 
-container.addEventListener('scroll', toggleScrollButtons);
-clickScroll();
-toggleScrollButtons();
+    const scrollLeft = storiesContainer.scrollLeft;
+    const scrollWidth = storiesContainer.scrollWidth;
+    const clientWidth = storiesContainer.clientWidth;
 
-handleResize();
-window.addEventListener('resize', handleResize);
-
-const postCards = document.querySelectorAll('.post-card');let count = 0;
-
-postCards.forEach((postCard) => {
-    
-    let container = postCard.querySelector('.post-image-container');
-    let prv = postCard.querySelector('.prv');
-    let next = postCard.querySelector('.next')
-    
-    let pagination = postCard.querySelector('.pagination');
-
-    let images = container.querySelectorAll('img');
-    let totalImages = images.length;
-
-    // Clear pagination before adding new bullets
-    pagination.innerHTML = "";
-
-    if (totalImages > 1) {
-        for (let i = 0; i < totalImages; i++) {
-            let bullet = document.createElement("span");
-            bullet.classList.add("bullet");
-            if (i === 0) bullet.classList.add("active"); // Set first bullet as active
-            pagination.appendChild(bullet);
-        }
+    if (scrollLeft > 1) {
+        leftToggle.innerHTML = `<img src="images/left-shift-icon.png" />`;
+    } else {
+        leftToggle.innerHTML = '';
     }
 
-    slideImage(container, prv, next, pagination);
-
-    prv.addEventListener('click', () => {
-        count--;
-        slideImage(container, prv, next, pagination);
-    });
-
-    next.addEventListener('click', () => {
-        count++;
-        slideImage(container, prv, next, pagination);
-    });
-
-    images.forEach((image, index) => {
-        image.style.left = `${index * 100}%`;
-    });
-});
-
-function slideImage (container, prv, next, pagination) {
-    let images = container.querySelectorAll('img');
-    
-    images.forEach((image) => {
-        image.style.transform = `translateX(-${count * 100}%)`;
-    });
-
-    let totalImages = container.querySelectorAll('img').length;
-    prv.style.display = count === 0 ? 'none' : 'block';
-    next.style.display = count === totalImages - 1 ? 'none' : 'block';
-
-    if (pagination) {
-        let bullets = pagination.querySelectorAll('.bullet');
-        bullets.forEach((bullet, index) => {
-            bullet.classList.toggle('active', index === count);
-        });
+    if (clientWidth >= scrollWidth) {
+        rightToggle.innerHTML = '';
+    }
+    else if (Math.round(scrollLeft) + clientWidth >= scrollWidth) {
+        rightToggle.innerHTML = '';
+    } else {
+        rightToggle.innerHTML = `<img src="images/right-shift-icon.png" />`;
     }
 }
+
+export function clickScroll () {
+    rightToggle.addEventListener('click', () => {
+        storiesContainer.scrollBy({ left: 320, behavior: "smooth" });
+    });
+    
+    leftToggle.addEventListener('click', () => {
+        storiesContainer.scrollBy({ left: -320, behavior: "smooth" });
+    })
+}
+
