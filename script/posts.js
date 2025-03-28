@@ -165,6 +165,9 @@ export function handlePostsControl () {
     
         let images = container.querySelectorAll('img');
         let totalImages = images.length;
+        
+        // Enable swipe gesture on mobile
+        addSwipeEvents(container, prv, next, pagination);
     
         // Clear pagination before adding new bullets
         pagination.innerHTML = "";
@@ -195,6 +198,40 @@ export function handlePostsControl () {
         });
     });
 }
+
+function addSwipeEvents(container, prv, next, pagination) {
+    let startX = 0;
+    let endX = 0;
+    let threshold = 50; // Minimum swipe distance to trigger slide
+
+    container.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    container.addEventListener("touchmove", (e) => {
+        endX = e.touches[0].clientX;
+    });
+
+    container.addEventListener("touchend", () => {
+        let swipeDistance = endX - startX;
+
+        if (swipeDistance > threshold) {
+            // Swipe right (previous image)
+            if (count > 0) {
+                count--;
+                slideImage(container, prv, next, pagination);
+            }
+        } else if (swipeDistance < -threshold) {
+            // Swipe left (next image)
+            let totalImages = container.querySelectorAll("img").length;
+            if (count < totalImages - 1) {
+                count++;
+                slideImage(container, prv, next, pagination);
+            }
+        }
+    });
+}
+
 
 export function slideImage (container, prv, next, pagination) {
     let images = container.querySelectorAll('img');
