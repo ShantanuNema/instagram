@@ -6,7 +6,7 @@ const postsCard =
     name: 'fox_🧀🧀',
     location: 'earth..',
     time: '15h',
-    posts: ['https://picsum.photos/id/213/480/585', 'https://picsum.photos/id/215/480/585', 'https://picsum.photos/id/209/480/585', 'https://picsum.photos/id/113/480/585', 'https://picsum.photos/id/231/536/354', 'https://picsum.photos/536/354', 'https://picsum.photos/id/230/536/354', 'https://picsum.photos/id/229/536/354', 'https://picsum.photos/id/228/536/354', 'https://picsum.photos/id/227/536/354', 'https://picsum.photos/id/226/536/354'],
+    posts: ['https://picsum.photos/id/213/480/585', 'https://picsum.photos/id/215/480/585', 'https://picsum.photos/id/209/480/585', 'https://picsum.photos/id/113/480/585', 'https://picsum.photos/id/231/536/354', 'https://picsum.photos/536/354', 'https://picsum.photos/id/230/536/354', 'https://picsum.photos/id/229/536/354', 'https://picsum.photos/id/228/536/354', 'https://picsum.photos/id/227/536/354', 'https://picsum.photos/id/22/536/354'],
     likes: {
         number: 150,
         images: ['images/image2.png', 'images/image1.png', 'images/image7.png']
