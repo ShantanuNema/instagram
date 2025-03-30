@@ -3,21 +3,21 @@ let posts = '';
 const postsCard = 
     [{
     profileImage: 'images/image5.png',
-    name: 'fox_🧀🧀',
-    location: 'earth..',
+    name: 'cheese_🧀🧀',
+    location: 'refrigerator..',
     time: '15h',
-    posts: ['https://picsum.photos/id/213/480/585', 'https://picsum.photos/id/215/480/585', 'https://picsum.photos/id/209/480/585', 'https://picsum.photos/id/113/480/585', 'https://picsum.photos/id/231/536/354', 'https://picsum.photos/536/354', 'https://picsum.photos/id/230/536/354', 'https://picsum.photos/id/229/536/354', 'https://picsum.photos/id/228/536/354', 'https://picsum.photos/id/227/536/354', 'https://picsum.photos/id/22/536/354'],
+    posts: ['https://picsum.photos/id/213/480/585', 'https://picsum.photos/id/215/480/585', 'https://picsum.photos/id/209/480/585', 'https://picsum.photos/id/113/480/585', 'https://picsum.photos/id/231/536/354', 'https://picsum.photos/536/354', 'https://picsum.photos/id/230/536/354', 'https://picsum.photos/id/229/536/354', 'https://picsum.photos/id/228/536/354', 'https://picsum.photos/id/227/536/354', 'https://picsum.photos/id/294/536/354'],
     likes: {
         number: 150,
         images: ['images/image2.png', 'images/image1.png', 'images/image7.png']
     },
-    caption: 'aesthetics_✨🤌🏻'
+    caption: 'yummy_😋🤌🏻'
     },{
         profileImage: 'images/image8.png',
         name: 'bird_🕊🕊',
         location: 'sky..',
         time: '1d',
-        posts: ['https://picsum.photos/id/283/480/585', 'https://picsum.photos/id/115/480/585', 'https://picsum.photos/id/709/480/585'],
+        posts: ['https://picsum.photos/id/283/480/585', 'https://picsum.photos/id/115/480/585', 'https://picsum.photos/id/191/480/585'],
         likes: {
             number: 129,
             images: ['images/image3.png', 'images/image4.png', 'images/image6.png']
@@ -152,26 +152,24 @@ function getLikedImages (index) {
 postContainer.innerHTML = posts;
 
 const postCards = document.querySelectorAll('.post-card');
-let count = 0;
 
 export function handlePostsControl () {
+
     postCards.forEach((postCard) => {
     
-        let container = postCard.querySelector('.post-image-container');
-        let prv = postCard.querySelector('.prv');
-        let next = postCard.querySelector('.next')
-        
-        let pagination = postCard.querySelector('.pagination');
-    
-        let images = container.querySelectorAll('img');
-        let totalImages = images.length;
+        const container = postCard.querySelector('.post-image-container');
+        const prv = postCard.querySelector('.prv');
+        const next = postCard.querySelector('.next')
+        const pagination = postCard.querySelector('.pagination');
+        const images = container.querySelectorAll('img');
+        const totalImages = images.length;
+        let count = 0;
         
         // Enable swipe gesture on mobile
         addSwipeEvents(container, prv, next, pagination);
-    
+
         // Clear pagination before adding new bullets
         pagination.innerHTML = "";
-    
         if (totalImages > 1) {
             for (let i = 0; i < totalImages; i++) {
                 let bullet = document.createElement("span");
@@ -181,16 +179,16 @@ export function handlePostsControl () {
             }
         }
     
-        slideImage(container, prv, next, pagination);
+        slideImage(images, prv, next, pagination, count);
     
         prv.addEventListener('click', () => {
             count--;
-            slideImage(container, prv, next, pagination);
+            slideImage(images, prv, next, pagination, count);
         });
     
         next.addEventListener('click', () => {
             count++;
-            slideImage(container, prv, next, pagination);
+            slideImage(images, prv, next, pagination, count);
         });
     
         images.forEach((image, index) => {
@@ -233,14 +231,13 @@ function addSwipeEvents(container, prv, next, pagination) {
 }
 
 
-export function slideImage (container, prv, next, pagination) {
-    let images = container.querySelectorAll('img');
-    
+function slideImage (images, prv, next, pagination, count) {   
     images.forEach((image) => {
         image.style.transform = `translateX(-${count * 100}%)`;
     });
 
-    let totalImages = container.querySelectorAll('img').length;
+    let totalImages = images.length;
+
     prv.style.display = count === 0 ? 'none' : 'block';
     next.style.display = count === totalImages - 1 ? 'none' : 'block';
 
