@@ -166,7 +166,7 @@ export function handlePostsControl () {
         let count = 0;
         
         // Enable swipe gesture on mobile
-        addSwipeEvents(container, prv, next, pagination);
+        addSwipeEvents(container, images, prv, next, pagination, count);
 
         // Clear pagination before adding new bullets
         pagination.innerHTML = "";
@@ -197,7 +197,7 @@ export function handlePostsControl () {
     });
 }
 
-function addSwipeEvents(container, prv, next, pagination) {
+function addSwipeEvents(container, images, prv, next, pagination, count) {
     let startX = 0;
     let endX = 0;
     let threshold = 50; // Minimum swipe distance to trigger slide
@@ -217,14 +217,14 @@ function addSwipeEvents(container, prv, next, pagination) {
             // Swipe right (previous image)
             if (count > 0) {
                 count--;
-                slideImage(container, prv, next, pagination);
+                slideImage(images, prv, next, pagination, count);
             }
         } else if (swipeDistance < -threshold) {
             // Swipe left (next image)
             let totalImages = container.querySelectorAll("img").length;
             if (count < totalImages - 1) {
                 count++;
-                slideImage(container, prv, next, pagination);
+                slideImage(images, prv, next, pagination, count);
             }
         }
     });
