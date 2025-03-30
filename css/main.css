@@ -157,6 +157,7 @@ main {
     padding-left: 10px;
     align-items: center;
 }
+
 .likes img {
     height: 18px;
     width: 18px;
@@ -203,7 +204,7 @@ main {
     font-size: 16px;
     height: 0px;
     background-color: transparent;
-    color: rgb(39, 82, 223);
+    /* color: rgb(39, 82, 223) !important; */
     padding: 0;
     cursor: pointer;
     margin: 8px 10px;
