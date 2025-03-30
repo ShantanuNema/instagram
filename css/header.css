@@ -71,5 +71,17 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 17px;
+    margin: 0 2%;
 }
+
+.appearance-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.appearance {
+    height: 35px;
+    cursor: pointer;
+} 
