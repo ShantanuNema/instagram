@@ -1,7 +1,7 @@
 import { handleSearchInput } from "./header.js";
 import { handlePostsControl, togglePostBtn } from "./posts.js";
 import { getStories, toggleStoryBtn, clickScroll } from "./story.js";
-import { func } from "./change-appearance.js";
+import { executeChangeAppearance } from "./change-appearance.js";
 
 const elements = {
     header: document.querySelector('header'),
@@ -34,7 +34,7 @@ handleSearchInput();
 
 getStories().then(
   () => {
-    func();
+    executeChangeAppearance();
   })
 
 clickScroll();

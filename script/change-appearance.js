@@ -1,6 +1,6 @@
 import { toogleAppearance } from "./index.js";
 
-export function func() {
+export function executeChangeAppearance() {
     const toggleMode = document.querySelector('.appearance');
     const paragraph = document.querySelectorAll('p');
     const socialBtns = document.querySelectorAll('.social-buttons');
@@ -8,6 +8,7 @@ export function func() {
     const storiesRing = document.querySelectorAll('.story');
     const likedImagesRing = document.querySelectorAll(".likes img");
     const ellipsis = document.querySelectorAll('.ellipsis');
+    const input = document.getElementById('searchInput');
 
     toggleMode.addEventListener('click', changeAppearance);
 
@@ -20,10 +21,26 @@ export function func() {
         const textColor = isDarkMode ? 'white' : 'black';
         const borderColor = isDarkMode ? 'black' : 'white';
         const filterValue = `invert(${isDarkMode ? 1 : 0})`;
-    
+        const inputColor = isDarkMode ? '#d1d1d1' : '#ececec';
+        
+        input.style.backgroundColor = inputColor;
         paragraph.forEach(p => p.style.color = textColor);
         storiesRing.forEach(ring => ring.style.borderColor = borderColor);
-        socialBtns.forEach(socialBtn => socialBtn.style.filter = filterValue);
+        socialBtns.forEach((socialBtn) => {
+            let images = socialBtn.querySelectorAll('img');
+            images.forEach((img) => {
+                img.style.filter = filterValue;
+            });
+            let svg = socialBtn.querySelector('svg');
+            let pathElement = socialBtn.querySelector("path");
+            let isLiked = svg.getAttribute('data-value');
+
+            if (isLiked === 'false') {
+                pathElement.setAttribute("fill", "none"); // Red fill
+                pathElement.setAttribute("stroke", `${textColor}`); // White border
+            }
+        });
+
         commentBox.forEach(elements => elements.style.filter = filterValue);
         likedImagesRing.forEach(image => image.style.borderColor = borderColor);
         ellipsis.forEach(ellipsi => ellipsi.style.filter = filterValue);
@@ -32,29 +49,57 @@ export function func() {
     }
 }
 
-export function liked() {
-    document.querySelectorAll('.like').forEach((element) => {
-        element.addEventListener("click", (event) => {
-            
-            let parent = event.target.parentNode; 
-            let isLiked = event.target.classList.contains("liked");
-
-            if (!isLiked) {
-                parent.innerHTML = `
-                    <i class="fa-solid fa-heart like liked" style="color: #dc2e2e;"></i>
-                    <img class="comment" src="icons/comment.png" />
-                `;
-            } else {
-                parent.innerHTML = `
-                    <img class="like" src="icons/heart.png" />
-                    <img class="comment" src="icons/comment.png" />
-                `;
-            }
-
-            // Reattach event listeners to newly created elements
-            liked();
+function addEventTolikeBtn() {
+    const postImage = document.querySelectorAll('.post-image-container');
+    document.querySelectorAll('.like').forEach((svgElement, index) => {    
+                
+        svgElement.addEventListener("click", () => {
+            toggleLikedBtn(svgElement);
+            animation(svgElement);
         });
+
+        postImage[index].addEventListener('dblclick', () => {
+            toggleLikedBtn(svgElement)
+            animation(svgElement);
+        });
+
+        function animation (svgElement) {
+            svgElement.classList.add("clicked"); 
+            // Remove the class after animation ends to allow re-triggering
+            setTimeout(() => {
+                svgElement.classList.remove("clicked");
+            }, 300); // Duration matches animation time (0.3s)
+        }
+
     });
 }
 
-liked();
+function toggleLikedBtn (svgElement) {
+
+    const toggleMode = document.querySelector('.appearance'); 
+    let isDarkMode = toggleMode.src.endsWith('icons/dark-mode.png') ? false : true; 
+    
+    let pathElement = svgElement.querySelector("path");
+    let isLiked = svgElement.getAttribute('data-value');
+
+
+    if (isLiked === 'false') {
+        pathElement.setAttribute("fill", "#dc2e2e"); // Red fill
+        pathElement.setAttribute("stroke", "#dc2e2e"); // White border
+        isLiked = 'true';
+    } else {
+        pathElement.setAttribute("fill", "none");
+        
+        if (isDarkMode) {
+            console.log('adsjfl' + isDarkMode);
+            pathElement.setAttribute("stroke", "white"); // White border
+        } else {
+            pathElement.setAttribute("stroke","black"); // White border
+        }
+        isLiked = 'false'
+    }
+    
+    svgElement.setAttribute("data-value", isLiked);
+}
+
+addEventTolikeBtn();
