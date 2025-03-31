@@ -146,11 +146,11 @@ main {
 
 .like {
     height: 25px;
-    font-size: 28px;
     cursor: pointer;
 }
 
-.like:not(:hover) {
+.like:not(:hover), 
+.like.clicked  {
     animation: popOut 0.3s ease-in-out;
 }
 

@@ -72,6 +72,18 @@ header {
     justify-content: center;
     align-items: center;
     margin: 0 2%;
+    position: relative;
+}
+
+.notification {
+    height: 8px;
+    width: 8px;
+    left: 16px;
+    top: 16px;
+    border-radius: 50%;
+    background-color: #dc2e2e !important;
+    border: 2px solid white;
+    position: absolute;
 }
 
 .appearance-div {
